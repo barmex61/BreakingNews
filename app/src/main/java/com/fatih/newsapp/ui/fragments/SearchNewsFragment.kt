@@ -19,17 +19,21 @@ import com.fatih.newsapp.ui.viewmodel.NewsViewModel
 import com.fatih.newsapp.util.Constants.SEARCH_NEWS_TIME_DELAY
 import com.fatih.newsapp.util.Status
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.FragmentScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class SearchNewsFragment @Inject constructor(private val newsAdapter: NewsAdapter): Fragment(R.layout.fragment_search_news) {
+class SearchNewsFragment: Fragment(R.layout.fragment_search_news) {
 
     private lateinit var viewModel:NewsViewModel
     private lateinit var binding:FragmentSearchNewsBinding
+    private val newsAdapter by lazy {
+        NewsAdapter()
+    }
+
     private var job:Job?=null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

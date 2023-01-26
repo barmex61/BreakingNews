@@ -1,6 +1,7 @@
 package com.fatih.newsapp.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.fatih.newsapp.api.NewsApi
 import com.fatih.newsapp.database.ArticleDao
 import com.fatih.newsapp.entities.Article
@@ -11,19 +12,29 @@ import javax.inject.Inject
 class NewsRepository @Inject constructor(private val articleDao: ArticleDao,private val articleApi:NewsApi) :NewsRepositoryInterface {
 
     override suspend fun insertArticle(article: Article): Long {
-        TODO("Not yet implemented")
+        return try {
+            articleDao.insertArticle(article)
+        }catch (e:Exception){
+            e.printStackTrace()
+            -1L
+        }
     }
 
     override suspend fun deleteArticle(article: Article) {
-        TODO("Not yet implemented")
+        try {
+            articleDao.deleteArticle(article)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 
     override fun getAllSavedArticles(): LiveData<List<Article>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getSelectedArticle(idInput: Int): Article {
-        TODO("Not yet implemented")
+        return try {
+            articleDao.getAllSavedArticles()
+        }catch (e:Exception){
+            e.printStackTrace()
+            MutableLiveData()
+        }
     }
 
     override suspend fun getBreakingNews(countryCode: String, page: Int): Resource<List<Article>> {

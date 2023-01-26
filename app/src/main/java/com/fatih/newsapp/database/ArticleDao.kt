@@ -7,7 +7,7 @@ import com.fatih.newsapp.entities.Article
 @Dao
 interface ArticleDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertArticle(article: Article):Long
 
     @Delete
@@ -15,8 +15,5 @@ interface ArticleDao {
 
     @Query("SELECT * FROM Article")
     fun getAllSavedArticles():LiveData<List<Article>>
-
-    @Query("SELECT * FROM Article WHERE id = :idInput")
-    suspend fun getSelectedArticle(idInput:Int):Article
 
 }

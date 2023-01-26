@@ -22,6 +22,8 @@ class NewsViewModel @Inject constructor(private val newsRepository: NewsReposito
     val searchList:LiveData<Resource<List<Article>>>
         get() = _searchList
 
+    val savedArticlesList=newsRepository.getAllSavedArticles()
+
     var breakingNewsPage=1
     var searchNewsPage=1
 
@@ -38,4 +40,13 @@ class NewsViewModel @Inject constructor(private val newsRepository: NewsReposito
         _searchList.value= Resource.loading(null,null)
         _searchList.value= newsRepository.searchNews(query,searchNewsPage)
     }
+
+    fun deleteArticle(article: Article)=viewModelScope.launch {
+        newsRepository.deleteArticle(article)
+    }
+
+    fun insertArticle(article: Article)=viewModelScope.launch {
+        newsRepository.insertArticle(article)
+    }
+
 }

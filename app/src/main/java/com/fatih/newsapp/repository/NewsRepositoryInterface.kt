@@ -10,7 +10,6 @@ interface NewsRepositoryInterface {
     suspend fun insertArticle(article: Article):Long
     suspend fun deleteArticle(article: Article)
     fun getAllSavedArticles():LiveData<List<Article>>
-    fun getSelectedArticle(idInput:Int):Article
     suspend fun getBreakingNews(countryCode:String,page:Int=START_PAGE): Resource<List<Article>>
     suspend fun searchNews(query:String,page:Int=START_PAGE):Resource<List<Article>>
 
